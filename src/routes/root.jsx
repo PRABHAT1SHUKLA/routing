@@ -1,3 +1,5 @@
+import { Link, Outlet } from "react-router-dom";
+
 export default function Root() {
     return (
       <>
@@ -29,15 +31,25 @@ export default function Root() {
           <nav>
             <ul>
               <li>
-                <a href={`/contacts/1`}>Prabhat shukla</a>
+                <Link to={`/contacts/1`}>Prabhat shukla</Link>
               </li>
               <li>
-                <a href={`/contacts/2`}>divyansh </a>
+                <Link to={`/contacts/2`}>divyansh </Link>
               </li>
+              <li>
+                <Link to={`/random/2`}>divyansh </Link>
+              </li>
+
             </ul>
           </nav>
         </div>
         <div id="detail"></div>
+
+        <div id="detail">
+            <Outlet/>
+        </div>
+
+       
       </>
     );
   }
