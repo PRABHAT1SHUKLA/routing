@@ -1,11 +1,24 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet , useLoaderData } from "react-router-dom";
+import { getContacts } from "../contacts";
+
+export async function loader() {
+  const contacts = await getContacts();
+  return { contacts };
+}
 
 export default function Root() {
+    const {contacts } = useLoaderData();
+
     return (
       <>
         <div id="sidebar">
           <h1>React Router Contacts</h1>
-          <div>
+     
+       
+
+
+
+        <div>
             <form id="search-form" role="search">
               <input
                 id="q"
@@ -28,27 +41,41 @@ export default function Root() {
               <button type="submit">New</button>
             </form>
           </div>
-          <nav>
+        
+       
+         <nav>
+          {contacts.length ? (
             <ul>
-              <li>
-                <Link to={`/contacts/1`}>Prabhat shukla</Link>
-              </li>
-              <li>
-                <Link to={`/contacts/2`}>divyansh </Link>
-              </li>
-              <li>
-                <Link to={`/random/2`}>divyansh </Link>
-              </li>
-
+              {contacts.map((contact) => (
+                <li key={contact.id}>
+                  <Link to={`contacts/${contact.id}`}>
+                    {contact.first || contact.last ? (
+                      <>
+                        {contact.first} {contact.last}
+                      </>
+                    ) : (
+                      <i>No Name</i>
+                    )}{" "}
+                    {contact.favorite && <span>★</span>}
+                  </Link>
+                </li>
+              ))}
             </ul>
-          </nav>
-        </div>
-        <div id="detail"></div>
+          ) : (
+            <p>
+              <i>No contacts</i>
+            </p>
+          )}
+        </nav> 
+
+
+
 
         <div id="detail">
             <Outlet/>
         </div>
 
+        </div>
        
       </>
     );
