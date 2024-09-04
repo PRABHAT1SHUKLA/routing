@@ -1,4 +1,4 @@
-import { Link, Outlet , useLoaderData , Form, redirect, NavLink, } from "react-router-dom";
+import { Link, Outlet , useLoaderData , Form, redirect, NavLink, useNavigation, } from "react-router-dom";
 import { getContacts , createContact} from "../contacts";
 
 export async function loader() {
@@ -13,6 +13,7 @@ export async function action(){
 
 export default function Root() {
     const {contacts } = useLoaderData();
+    const navigation = useNavigation();
 
     return (
       <>
@@ -82,7 +83,11 @@ export default function Root() {
        
 
         </div>
-        <div id="detail">
+        <div id="detail"
+        className={
+            navigation.state === " loading" ? "loading" :""
+        }
+        >
             <Outlet/>
         </div>
        
