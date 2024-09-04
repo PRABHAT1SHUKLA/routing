@@ -6,10 +6,10 @@ export async function loader({ params }) {
   return { contact };
 }
 
-export async function action({request, params}){
+export async function action({ request, params }) {
   const formData = await request.formData();
   return updateContact(params.contactId, {
-    favourite: formData.get("favourite") ==="true",
+    favorite: formData.get("favorite") === "true",
   });
 }
 
